@@ -47,11 +47,24 @@ export type CommentVoteValidatorTypes = z.infer<typeof commentVoteValidator>;
 export const createCommentValidator = z.object({
   text: z
     .string()
-    .min(10, { message: "Minimum 10 characters required" })
+    .min(3, { message: "Minimum 3 characters required" })
     .max(100, { message: "Reached to max charachters" }),
   postId: z.string(),
+  replyToId: z.string().nullish().optional(),
 });
 
 export type createCommentValidatorTypes = z.infer<
   typeof createCommentValidator
+>;
+
+export const updateUsernamesValidator = z.object({
+  username: z
+    .string()
+    .min(3, { message: "Atleast 3 characters required" })
+    .max(35, { message: "Reached to max charachters" })
+    .regex(/^[a-zA-Z0-9_]+$/),
+});
+
+export type updateUsernamesValidatorType = z.infer<
+  typeof updateUsernamesValidator
 >;

@@ -12,6 +12,7 @@ import {
   ArrowBigUp,
   ArrowBigDown,
   Loader2,
+  Users,
 } from "lucide-react";
 
 const Icons = {
@@ -102,6 +103,7 @@ const Icons = {
   arrowUp: ArrowBigUp,
   arrowDown: ArrowBigDown,
   loader: Loader2,
+  users: Users,
 };
 
 export default Icons;

@@ -39,14 +39,16 @@ const Comment = ({
       <div className="flex gap-2 items-center">
         <UserAvatar user={comment.user} className="w-7 h-7" />
         <p className="text-sm text-zinc-800 font-medium">
-          u/{comment.user.name}
+          u/{comment.user.username}
         </p>
         <p className="text-xs text-zinc-400 font-medium">
           {formatTimeToNow(comment.createdAt)}
         </p>
       </div>
 
-      <p className="text-zinc-800 font-medium text-sm mt-1">{comment.text}</p>
+      <p className="text-zinc-800 font-medium text-sm mt-1 mb-1">
+        {comment.text}
+      </p>
 
       {/* Comment Vote */}
       <div className="flex gap-1 items-center">
@@ -57,21 +59,22 @@ const Comment = ({
         />
         <Button
           variant="ghost"
-          // className="flex items-center gap-1 cursor-pointer"
+          className="p-[5px] h-[2rem] px-2"
           onClick={() => setOpenReply(true)}
         >
           <Icons.comment className="w-4" />
-          <p className="text-sm font-medium text-zinc-800">Replay</p>
+          {/* <p className="text-sm font-medium text-zinc-800">Replay</p> */}
         </Button>
       </div>
 
       {/* Create Reply */}
       {openReply ? (
-        <div>
+        <div className="mt-1">
           <CreateReplyComment
             username={comment.user.username!}
             postId={postId}
             closeReplay={() => setOpenReply(false)}
+            replyToId={comment.replyToId ?? comment.id}
           />
         </div>
       ) : null}

@@ -11,7 +11,7 @@ const SignInButton = () => {
     <>
       {pathname.startsWith("/sign-in") ? null : (
         <Link href="/sign-in">
-          <Button>Sign in</Button>
+          <Button className="text-xs p-3 sm:text-sm">Sign in</Button>
         </Link>
       )}
     </>

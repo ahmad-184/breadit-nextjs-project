@@ -2,7 +2,7 @@ import Icons from "@/components/Icons";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-import SignIn from "@/sections/SignIn";
+import SignIn from "@/components/SignIn";
 import Link from "next/link";
 
 export default function Page() {

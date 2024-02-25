@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 import { Button } from "@/components/ui/Button";
 import Icons from "@/components/Icons";
-import SignIn from "@/sections/SignIn";
+import SignIn from "@/components/SignIn";
 
 export default function Page() {
   const modalRef = useRef(null);

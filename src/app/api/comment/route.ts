@@ -11,7 +11,7 @@ export const POST = async (req: Request) => {
 
     const body = await req.json();
 
-    const { text, postId } = createCommentValidator.parse(body);
+    const { text, postId, replyToId } = createCommentValidator.parse(body);
 
     const post = await db.post.findUnique({
       where: {
@@ -26,6 +26,7 @@ export const POST = async (req: Request) => {
         postId,
         text,
         userId: session.user.id,
+        ...(replyToId && { replyToId }),
       },
     });
 

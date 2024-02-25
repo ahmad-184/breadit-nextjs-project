@@ -15,6 +15,7 @@ import { Button } from "./ui/Button";
 import ErrorAlert from "./ErrorAlert";
 import { uploadFiles } from "@/lib/uploadthing";
 import useToast from "@/hooks/use-toast";
+import Icons from "./Icons";
 
 const Editor = ({ subredditId }: { subredditId: string }) => {
   const editorRef = useRef<EditorJsType>();
@@ -192,10 +193,20 @@ const Editor = ({ subredditId }: { subredditId: string }) => {
         </div>
         <div className="w-full min-h-[500px]" id="editor" />
       </div>
-      <Button className="w-full" isLoading={isLoading}>
-        {" "}
-        Submit
-      </Button>
+      <div className="flex gap-2 w-full">
+        <Button
+          className="w-full"
+          onClick={() => router.back()}
+          variant="outline"
+          isLoading={isLoading}
+        >
+          <Icons.arrowLeft className="w-4" /> Back
+        </Button>
+        <Button className="w-full" isLoading={isLoading}>
+          {" "}
+          Submit
+        </Button>
+      </div>
     </form>
   );
 };

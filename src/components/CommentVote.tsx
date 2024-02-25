@@ -95,8 +95,8 @@ const CommentVote = ({
     <div className="flex gap-2 items-center">
       <Button
         variant="ghost"
-        className={cn("px-2", {
-          "bg-emerald-100": currentUserVote === "UP",
+        className={cn("p-[5px] h-[2rem]", {
+          // "bg-emerald-100": currentUserVote === "UP",
         })}
         onClick={() => vote("UP")}
       >
@@ -111,8 +111,8 @@ const CommentVote = ({
 
       <Button
         variant="ghost"
-        className={cn("px-2", {
-          "bg-rose-100": currentUserVote === "DOWN",
+        className={cn("p-[5px] h-[2rem]", {
+          // "bg-rose-100": currentUserVote === "DOWN",
         })}
         onClick={() => vote("DOWN")}
       >

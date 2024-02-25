@@ -29,7 +29,7 @@ const option: UserNavDropdownOptionsType[] = [
   },
   {
     text: "Settings",
-    link: "/setting",
+    link: "/settings",
   },
 ];
 
@@ -37,7 +37,7 @@ const UserNavDropdown: FC<UserNavDropdownProps> = ({ user }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
-        <UserAvatar user={user} />
+        <UserAvatar user={user} className="w-9 h-9 sm:w-10 sm:h-10" />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent

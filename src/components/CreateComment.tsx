@@ -82,7 +82,7 @@ const CreateComment = ({ postId }: { postId: string }) => {
         <div>
           <TextArea
             className="w-full p-3 font-medium placeholder:font-normal text-sm border border-zinc-100 rounded-md outline-none bg-zinc-100 resize-none appearance-none overflow-hidden"
-            minRows={4}
+            minRows={3}
             placeholder="Whats you thoughts?"
             {...register("text")}
           />

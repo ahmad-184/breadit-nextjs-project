@@ -1,4 +1,4 @@
-import { NextAuthOptions, getServerSession } from "next-auth";
+import { type NextAuthOptions, getServerSession } from "next-auth";
 // import GoogleProvider from "next-auth/providers/google";
 // import SpotifyProvider from "next-auth/providers/spotify";
 import GithubProvider from "next-auth/providers/github";

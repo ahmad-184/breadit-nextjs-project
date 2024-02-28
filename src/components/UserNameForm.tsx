@@ -19,7 +19,12 @@ type UserNameFormTyps = {
 };
 
 const UserNameForm = ({ username }: UserNameFormTyps) => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm({
     resolver: zodResolver(updateUsernamesValidator),
     defaultValues: {
       username,
@@ -34,6 +39,8 @@ const UserNameForm = ({ username }: UserNameFormTyps) => {
     mutationFn: async (data: updateUsernamesValidatorType) => {
       const payload: updateUsernamesValidatorType = data;
 
+      if (payload.username === username) throw new Error("SAME_USERNAME");
+
       const { status } = await axios.post(
         "/api/settings/update-username",
         payload
@@ -43,7 +50,7 @@ const UserNameForm = ({ username }: UserNameFormTyps) => {
 
       return true;
     },
-    onError: (err) => {
+    onError: (err: Error) => {
       // if its request error
       // Unauthorized error
       if (err instanceof axios.AxiosError && err.response?.status === 401)
@@ -53,6 +60,9 @@ const UserNameForm = ({ username }: UserNameFormTyps) => {
         return toast.error("Error", {
           description: "This user name already taken",
         });
+
+      if (err.message === "SAME_USERNAME")
+        return setError("username", { message: "Username cannot be same" });
 
       // if we dont no what the hell error is
       return toast.error("Error", {
@@ -71,16 +81,24 @@ const UserNameForm = ({ username }: UserNameFormTyps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-      <div className="relative h-fit">
-        <span className="text-sm text-zinc-400 absolute top-1/2 -translate-y-1/2 pl-2">
-          u/
-        </span>
-        <Input
-          {...register("username")}
-          defaultValue={username}
-          className="pl-6"
-        />
+      <div>
+        <div className="relative h-fit">
+          <span className="text-sm text-zinc-400 absolute top-1/2 -translate-y-1/2 pl-2">
+            u/
+          </span>
+          <Input
+            {...register("username")}
+            defaultValue={username}
+            className="pl-6"
+          />
+        </div>
+        {errors.username ? (
+          <p className="text-xs text-red-500 mt-1">
+            {errors.username?.message}
+          </p>
+        ) : null}
       </div>
+
       <div className="flex w-full">
         <Button type="submit">Submit</Button>
       </div>

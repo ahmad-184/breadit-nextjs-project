@@ -80,7 +80,7 @@ export default function Page() {
 
   return (
     <MaxWidthWrapper className="py-10 flex justify-center">
-      <div className="w-full sm:w-[500px] bg-white rounded-md p-4 py-6">
+      <div className="w-full sm:w-[500px] bg-white rounded-md p-4 py-6 shadow">
         <h1 className="text-zinc-800 font-medium text-xl sm:text-2xl text-center pb-4">
           Create a community
         </h1>

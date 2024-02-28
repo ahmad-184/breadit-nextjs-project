@@ -11,7 +11,7 @@ const MaxWidthWrapper: FC<MaxWidthWrapperProps> = ({
   ...props
 }) => {
   return (
-    <div className={`container max-w-5xl mx-auto ${className}`} {...props}>
+    <div className={`container px-5 max-w-6xl mx-auto ${className}`} {...props}>
       {children}
     </div>
   );

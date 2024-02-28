@@ -79,11 +79,14 @@ const Editor = ({ subredditId }: { subredditId: string }) => {
             config: {
               uploader: {
                 async uploadByFile(file: File) {
-                  const [res] = await uploadFiles([file], "imageUploader");
+                  const [res] = await uploadFiles("imageUploader", {
+                    files: [file],
+                  });
+                  console.log(res);
                   return {
                     success: 1,
                     file: {
-                      url: res.fileUrl,
+                      url: res.url,
                     },
                   };
                 },
@@ -197,7 +200,7 @@ const Editor = ({ subredditId }: { subredditId: string }) => {
         <Button
           className="w-full"
           onClick={() => router.back()}
-          variant="outline"
+          variant="subtle"
           isLoading={isLoading}
         >
           <Icons.arrowLeft className="w-4" /> Back

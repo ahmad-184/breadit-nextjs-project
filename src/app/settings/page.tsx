@@ -19,7 +19,7 @@ const Page = async () => {
         <h1 className="text-3xl sm:text-5xl font-bold text-zinc-800 mt-5">
           Settings
         </h1>
-        <div className="px-5 py-3 rounded-md bg-white">
+        <div className="px-5 py-3 rounded-md bg-white shadow">
           <h2 className="text-sm sm:text-lg font-medium text-zinc-800">
             Your username
           </h2>

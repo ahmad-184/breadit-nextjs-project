@@ -85,7 +85,7 @@ const SearchBar = () => {
                   </p>
                   <div className="flex flex-col gap-2">
                     {result.map((sub) => (
-                      <a href={`/r/${sub.name}`}>
+                      <a href={`/r/${sub.name}`} key={sub.id}>
                         <div className="flex gap-1 flex-wrap items-center justify-between ml-1 p-2 bg-zinc-50 hover:bg-zinc-100 cursor-pointer rounded-lg">
                           <div className="flex gap-2 items-center">
                             <Icons.users className="w-4" />

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePrevious } from "@mantine/hooks";
-import { Vote, VoteType } from "@prisma/client";
+import { VoteType } from "@prisma/client";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { z } from "zod";
@@ -13,6 +13,7 @@ import Icons from "../Icons";
 import { cn } from "@/lib/utils";
 import { PostVoteValidatorTypes, postVoteValidator } from "@/lib/validators";
 import useToast from "@/hooks/use-toast";
+import { usePathname } from "next/navigation";
 
 interface PostVoteProps {
   initialCurrentUserVote: VoteType;
@@ -30,6 +31,8 @@ const PostVoteClient = ({
   );
   const [votesAmount, setVotesAmount] = useState<number>(initialVotesAmount);
   const prevVote = usePrevious(currentUserVote);
+
+  const pathname = usePathname();
 
   const { loginErrToast } = useToast();
 
@@ -57,7 +60,6 @@ const PostVoteClient = ({
       if (voteType === "UP") setVotesAmount((prev) => prev - 1);
       if (voteType === "DOWN") setVotesAmount((prev) => prev + 1);
       setCurrentUserVote(prevVote);
-      console.log(err);
       // if its request error
       // Unauthorized error
       if (err instanceof z.ZodError)
@@ -90,7 +92,12 @@ const PostVoteClient = ({
   });
 
   return (
-    <div className="flex flex-col gap-2 items-center mt-5">
+    <div
+      className={cn("flex items-center", {
+        "flex-row md:flex-col gap-4 md:gap-2 md:mt-5": pathname !== "/",
+        "flex-col gap-2": pathname === "/",
+      })}
+    >
       <Button
         variant="ghost"
         className={cn("px-2", {

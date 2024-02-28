@@ -22,7 +22,7 @@ export const fetchCache = "force-no-store";
 
 const PostVoteShell = () => {
   return (
-    <div className="flex flex-col gap-2 items-center mt-5">
+    <div className="flex flex-row md:flex-col gap-2 items-center mt-5">
       <Skeleton className="w-8 h-9 rounded-md" />
       <div className="flex justify-center w-full">
         <Icons.loader className="animate-spin spin-in-3 w-5" />
@@ -55,27 +55,31 @@ const Page = async ({ params }: PageProps) => {
 
   if (!post && !cachedPost) return notFound();
 
+  const voteComponent = (
+    <Suspense fallback={<PostVoteShell />}>
+      <PostVoteServer
+        postId={postId}
+        getData={async () => {
+          return await db.post.findUnique({
+            where: {
+              id: post?.id || postId,
+            },
+            include: {
+              votes: true,
+            },
+          });
+        }}
+      />
+    </Suspense>
+  );
+
   return (
-    <div className="w-full">
+    <div className=" w-full">
       <div className="mb-7">
-        <div className="flex gap-2 sm:gap-6 w-full">
-          <Suspense fallback={<PostVoteShell />}>
-            <PostVoteServer
-              postId={postId}
-              getData={async () => {
-                return await db.post.findUnique({
-                  where: {
-                    id: post?.id || postId,
-                  },
-                  include: {
-                    votes: true,
-                  },
-                });
-              }}
-            />
-          </Suspense>
-          <div className="flex flex-col gap-5 flex-grow rounded-md p-4 bg-white">
-            <div className="flex flex-grow flex-col gap-1">
+        <div className="flex gap-2 sm:gap-6">
+          <div className="hidden md:block">{voteComponent}</div>
+          <div className="flex flex-col flex-grow gap-5 rounded-md p-4 bg-white shadow">
+            <div className="flex flex-col gap-1 w-full">
               <div>
                 <span className="text-zinc-500 text-xs font-medium mr-1">
                   Posted by u/
@@ -88,15 +92,19 @@ const Page = async ({ params }: PageProps) => {
                   )}
                 </span>
               </div>
-              <h1 className="font-semibold text-2xl text-zinc-900 mb-3">
+              <h1 className="font-semibold text-2xl text-zinc-900 mb-2">
                 {post?.title ?? cachedPost.title}
               </h1>
 
-              <EditorOutput content={post?.content ?? cachedPost.content} />
+              <div className="max-w-full w-full">
+                <EditorOutput content={post?.content ?? cachedPost.content} />
+              </div>
             </div>
 
             {/* <hr /> */}
-            <hr className="border-dashed my-3" />
+            <hr className="border-dashed my-1" />
+
+            <div className="flex justify-center md:hidden">{voteComponent}</div>
 
             {/* comments section */}
             <Suspense

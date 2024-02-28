@@ -2,7 +2,6 @@
 
 import { useMutation } from "@tanstack/react-query";
 import TextArea from "react-textarea-autosize";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/Button";

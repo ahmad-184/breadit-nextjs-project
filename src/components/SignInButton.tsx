@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { Button, buttonVariants } from "./ui/Button";
+import { Button } from "./ui/Button";
 
 const SignInButton = () => {
   const pathname = usePathname();

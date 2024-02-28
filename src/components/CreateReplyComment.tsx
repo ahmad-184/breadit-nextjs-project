@@ -51,14 +51,7 @@ const CreateReplyComment = ({
 
       createCommentValidator.parse(payload);
 
-      console.log(payload.text);
-
       const input = payload.text.split(" ");
-      console.log(input);
-
-      // if (payload.text.length < 3) {
-      //   throw new Error("EMPTY_INPUT");
-      // }
 
       if (
         input[0].startsWith("@") &&

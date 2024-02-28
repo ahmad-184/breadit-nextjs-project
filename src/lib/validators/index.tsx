@@ -62,7 +62,7 @@ export const updateUsernamesValidator = z.object({
     .string()
     .min(3, { message: "Atleast 3 characters required" })
     .max(35, { message: "Reached to max charachters" })
-    .regex(/^[a-zA-Z0-9_]+$/),
+    .regex(/^[a-zA-Z0-9_]+$/, { message: "invalid characters" }),
 });
 
 export type updateUsernamesValidatorType = z.infer<

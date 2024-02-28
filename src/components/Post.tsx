@@ -49,16 +49,21 @@ const Post = ({ post, totalVote, currentUserVote }: PostProps) => {
               {post.title}
             </h1>
           </a>
-          <div
-            className="max-h-[160px] w-full relative overflow-clip mb-2"
-            ref={pRef}
+          <a
+            className="w-full"
+            href={`/r/${post.subreddit.name}/post/${post.id}`}
           >
-            <EditorOutput content={post.content} />
+            <div
+              className="max-h-[160px] w-full relative overflow-clip mb-2"
+              ref={pRef}
+            >
+              <EditorOutput content={post.content} />
 
-            {pRef.current?.clientHeight === 160 ? (
-              <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent" />
-            ) : null}
-          </div>
+              {pRef.current?.clientHeight === 160 ? (
+                <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent" />
+              ) : null}
+            </div>
+          </a>
         </div>
       </div>
       <div className="bg-zinc-50 p-4 w-full">

@@ -1,7 +1,3 @@
-import { SVGProps } from "react";
-
-interface NoPostProps extends SVGProps<SVGElement> {}
-
 const NoPost = ({ ...props }) => {
   return (
     <svg

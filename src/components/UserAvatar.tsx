@@ -3,7 +3,6 @@ import { Avatar, AvatarFallback } from "./ui/Avatar";
 import { FC, HTMLAttributes } from "react";
 import Image from "next/image";
 import Icons from "./Icons";
-import { cn } from "@/lib/utils";
 
 interface UserAvatarProps extends HTMLAttributes<HTMLDivElement> {
   user: Pick<User, "image" | "name"> | null | undefined;

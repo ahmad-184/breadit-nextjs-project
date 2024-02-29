@@ -5,17 +5,27 @@ export async function GET(req: Request) {
     const url = new URL(req.url);
     const query = url.searchParams.get("query");
 
-    if (!query) return new Response("Search query not found", { status: 404 });
+    let option = {};
+    if (query) {
+      option = {
+        where: {
+          name: {
+            mode: "insensitive",
+            contains: query,
+          },
+        },
+      };
+    }
 
     const data = await db.subreddit.findMany({
-      where: {
-        name: {
-          mode: "insensitive",
-          contains: query,
-        },
-      },
       include: {
         _count: true,
+      },
+      ...option,
+      orderBy: {
+        Subscriber: {
+          _count: "desc",
+        },
       },
     });
 

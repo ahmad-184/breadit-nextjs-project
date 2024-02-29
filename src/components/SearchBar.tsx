@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import debounce from "lodash.debounce";
 import { Command } from "./ui/Command";
@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 
 const SearchBar = () => {
   const [input, setInput] = useState<string>("");
+  const [focused, setFocused] = useState<boolean>(false);
   const commandRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -23,7 +24,6 @@ const SearchBar = () => {
   } = useQuery({
     queryKey: ["search-query"],
     queryFn: async () => {
-      if (input.length === 0) return [];
       const query = `/api/search?query=${input}`;
 
       const { data, status } = await axios.get(query);
@@ -46,34 +46,45 @@ const SearchBar = () => {
 
   useOnClickOutside(commandRef, () => {
     setInput("");
+    setFocused(false);
   });
+
+  useEffect(() => {
+    if (focused) {
+      debouncedSearch();
+    }
+  }, [focused]);
 
   return (
     <div className="flex flex-grow justify-center">
       <Command
         ref={commandRef}
         className={cn(
-          "max-w-lg overflow-visible z-50 relative p-[2px] sm:p-1 border w-full rounded-lg"
+          "max-w-lg overflow-visible z-50 relative p-[2px] sm:p-1 border w-full rounded-lg",
+          {
+            "outline-zinc-500 outline-2 outline outline-offset-1": focused,
+          }
         )}
       >
         <CommandInput
           placeholder="Search for communities..."
-          className="text-sm border-none outline-none p-2 "
+          className={cn("text-sm border-none outline-none p-2")}
           value={input}
+          onFocus={() => setFocused(true)}
           onValueChange={(e) => {
             setInput(e);
             debouncedSearch();
           }}
         />
 
-        {input.length ? (
+        {focused ? (
           <>
             <div className="absolute top-full mt-1 inset-x-0 bg-white shadow border rounded-lg p-3 flex flex-col gap-1">
-              {input.length && isFetching ? (
+              {focused && isFetching ? (
                 <div className="w-full flex justify-center text-zinc-400">
                   <Icons.loader className="animate-spin spin-in-3 w-5" />
                 </div>
-              ) : input.length && isFetched && !result?.length ? (
+              ) : focused && isFetched && !result?.length ? (
                 <div className="w-full flex justify-center text-center text-xs sm:text-sm font-medium text-zinc-400">
                   No results found...
                 </div>
@@ -98,7 +109,7 @@ const SearchBar = () => {
                               {sub._count.posts} posts
                             </span>
                             <span className="text-xs text-zinc-500 underline font-medium">
-                              {sub._count.Subscriber} Subscribers
+                              {sub._count.Subscriber} subscribers
                             </span>
                           </div>
                         </div>

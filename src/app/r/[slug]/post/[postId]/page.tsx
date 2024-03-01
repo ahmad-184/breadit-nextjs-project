@@ -14,6 +14,7 @@ import CommentsSection from "@/components/CommentsSection";
 interface PageProps {
   params: {
     postId: string;
+    slug: string;
   };
 }
 
@@ -33,7 +34,7 @@ const PostVoteShell = () => {
 };
 
 const Page = async ({ params }: PageProps) => {
-  const { postId } = params;
+  const { postId, slug: subredditName } = params;
 
   const cachedPost = (await redis.hgetall(
     `post:${postId}`
@@ -59,6 +60,7 @@ const Page = async ({ params }: PageProps) => {
     <Suspense fallback={<PostVoteShell />}>
       <PostVoteServer
         postId={postId}
+        subredditName={subredditName}
         getData={async () => {
           return await db.post.findUnique({
             where: {

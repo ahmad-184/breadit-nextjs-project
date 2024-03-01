@@ -19,12 +19,14 @@ interface PostVoteProps {
   initialCurrentUserVote: VoteType;
   postId: string;
   initialVotesAmount: number;
+  subredditName?: string;
 }
 
 const PostVoteClient = ({
   initialCurrentUserVote,
   postId,
   initialVotesAmount,
+  subredditName,
 }: PostVoteProps) => {
   const [currentUserVote, setCurrentUserVote] = useState<VoteType | undefined>(
     initialCurrentUserVote
@@ -95,7 +97,8 @@ const PostVoteClient = ({
     <div
       className={cn("flex items-center", {
         "flex-row md:flex-col gap-4 md:gap-2 md:mt-5": pathname !== "/",
-        "flex-col gap-2": pathname === "/",
+        "flex-col gap-2":
+          pathname === `/r/${subredditName}` || pathname === "/",
       })}
     >
       <Button

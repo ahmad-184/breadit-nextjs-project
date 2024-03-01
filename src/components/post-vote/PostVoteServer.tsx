@@ -8,6 +8,7 @@ interface PostVoteServerProps {
   initialVoteAmount?: number;
   initialCurrentUserVote?: VoteType;
   getData?: () => Promise<(Post & { votes: Vote[] }) | null>;
+  subredditName: string;
 }
 
 const PostVoteServer = async ({
@@ -15,6 +16,7 @@ const PostVoteServer = async ({
   initialVoteAmount,
   initialCurrentUserVote,
   getData,
+  subredditName,
 }: PostVoteServerProps) => {
   const session = await getUserSession();
 
@@ -45,6 +47,7 @@ const PostVoteServer = async ({
       postId={postId}
       initialCurrentUserVote={_currestUserVote!}
       initialVotesAmount={_votesAmt}
+      subredditName={subredditName}
     />
   );
 };

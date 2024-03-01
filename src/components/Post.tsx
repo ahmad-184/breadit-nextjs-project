@@ -14,7 +14,12 @@ interface PostProps {
   subredditName: string;
 }
 
-const Post = ({ post, totalVote, currentUserVote }: PostProps) => {
+const Post = ({
+  post,
+  totalVote,
+  currentUserVote,
+  subredditName,
+}: PostProps) => {
   const pRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -24,6 +29,7 @@ const Post = ({ post, totalVote, currentUserVote }: PostProps) => {
           postId={post.id}
           initialCurrentUserVote={currentUserVote!}
           initialVotesAmount={totalVote}
+          subredditName={subredditName}
         />
         <div className="flex w-[100px] flex-grow flex-col gap-1">
           <div className="w-full">

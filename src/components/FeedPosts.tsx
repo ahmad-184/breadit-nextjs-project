@@ -31,6 +31,7 @@ const FeedPosts = ({
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
     threshold: 1,
+    rootMargin: "100px",
   });
 
   const { data, fetchNextPage, isFetchingNextPage, hasNextPage, isFetching } =

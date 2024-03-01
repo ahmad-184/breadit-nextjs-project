@@ -17,9 +17,10 @@ const NavbarWrapper = ({
   return (
     <div
       className={cn(
-        `fixed top-0 z-50 inset-x-0 bg-zinc-50 sm:px-4 py-3 border-b border-zinc-300 ${className}`,
+        `fixed top-0 z-50 inset-x-0 sm:px-4 py-3 border-b border-zinc-200 ${className}`,
         {
           "bg-white/50 backdrop-blur-md": scroll.y >= 5,
+          "bg-zinc-100": scroll.y === 0,
         }
       )}
       {...props}
